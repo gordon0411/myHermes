@@ -4,15 +4,35 @@ $pidFile = Join-Path $runtimeRoot "whisper-server.pid"
 $outLog = Join-Path $runtimeRoot "logs\server.out.log"
 $errLog = Join-Path $runtimeRoot "logs\server.err.log"
 
-if (-not (Test-Path -LiteralPath $pidFile)) {
-    Write-Output "whisper-server: stopped"
-    exit 0
+function Get-WhisperProcess {
+    $process = $null
+    if (Test-Path -LiteralPath $pidFile) {
+        $serverPid = Get-Content -LiteralPath $pidFile -ErrorAction SilentlyContinue
+        if ($serverPid) {
+            $process = Get-Process -Id $serverPid -ErrorAction SilentlyContinue
+        }
+    }
+
+    if (-not $process) {
+        $process = Get-Process whisper-server -ErrorAction SilentlyContinue |
+            Sort-Object StartTime -Descending |
+            Select-Object -First 1
+    }
+
+    if ($process -and (-not (Test-Path -LiteralPath $pidFile))) {
+        Set-Content -LiteralPath $pidFile -Value $process.Id -Encoding ascii
+    }
+
+    return $process
 }
 
-$serverPid = Get-Content -LiteralPath $pidFile -ErrorAction SilentlyContinue
-$process = if ($serverPid) { Get-Process -Id $serverPid -ErrorAction SilentlyContinue } else { $null }
+$process = Get-WhisperProcess
 if (-not $process) {
-    Write-Output "whisper-server: stale pid file"
+    if (Test-Path -LiteralPath $pidFile) {
+        Write-Output "whisper-server: stale pid file"
+    } else {
+        Write-Output "whisper-server: stopped"
+    }
     if (Test-Path -LiteralPath $outLog) {
         Write-Output "--- recent stdout ---"
         Get-Content -LiteralPath $outLog -Tail 20
@@ -24,7 +44,7 @@ if (-not $process) {
     exit 0
 }
 
-Write-Output "whisper-server: running (PID: $serverPid)"
+Write-Output "whisper-server: running (PID: $($process.Id))"
 if (Test-Path -LiteralPath $outLog) {
     Write-Output "--- recent stdout ---"
     Get-Content -LiteralPath $outLog -Tail 20

@@ -13,25 +13,25 @@
       "base_url": null,
       "script": null,
       "schedule": {
-        "kind": "interval",
-        "minutes": 1440,
-        "display": "every 1440m"
+        "kind": "cron",
+        "expr": "30 7 * * *",
+        "display": "30 7 * * *"
       },
-      "schedule_display": "every 1440m",
+      "schedule_display": "30 7 * * *",
       "repeat": {
         "times": null,
-        "completed": 5
+        "completed": 12
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-04-18T09:13:52.552411+08:00",
-      "next_run_at": "2026-04-20T19:42:28.388152+08:00",
-      "last_run_at": "2026-04-19T19:01:17.228182+08:00",
-      "last_status": "error",
-      "last_error": "RuntimeError: cannot schedule new futures after interpreter shutdown",
-      "last_delivery_error": "delivery error: Feishu send failed: cannot schedule new futures after interpreter shutdown",
+      "next_run_at": "2026-04-27T07:30:00+08:00",
+      "last_run_at": "2026-04-26T07:32:01.704033+08:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": "delivery error: Feishu send failed: Not connected",
       "deliver": "origin",
       "origin": {
         "platform": "feishu",
@@ -43,7 +43,7 @@
     {
       "id": "a2cb94da490d",
       "name": "\u6bcf\u5468\u5de5\u4f5c\u5468\u62a5",
-      "prompt": "\u8bfb\u53d6 Notion \u9875\u9762\uff08\u9875\u9762 ID: 34349d5b27068057ac62c99678af306c\uff0c\u6807\u9898\"002\u5de5\u4f5c\u65e5\u5fd7-\u4e34\"\uff09\u6700\u8fd1\u4e00\u5468\u7684\u5de5\u4f5c\u65e5\u5fd7\u5185\u5bb9\uff0c\u6574\u7406\u6210\u5468\u62a5\u683c\u5f0f\uff0c\u53d1\u9001\u5230\u98de\u4e66\uff08chat_id: oc_40d609fc62c1f82234b75138fbc7a446\uff09\u3002Notion API Key: 从环境变量 NOTION_API_KEY 读取\u3002\u7528curl\u8c03\u7528Notion API\u83b7\u53d6\u9875\u9762blocks\uff08blocks API: GET https://api.notion.com/v1/blocks/{page_id}/children\uff09\uff0c\u89e3\u6790\u65e5\u671f\u4e3a\u672c\u5468\uff08\u5468\u4e00\u81f3\u5468\u65e5\uff09\u7684\u6761\u76ee\uff0c\u6c47\u603b\u6210\u7ed3\u6784\u6e05\u6670\u7684\u5468\u62a5\uff0c\u5305\u542b\uff1a\u672c\u5468\u4e3b\u8981\u5de5\u4f5c\u3001\u672c\u5468\u4f1a\u8bae\u4e0e\u51b3\u7b56\u3001\u91cd\u70b9\u9879\u76ee\u8fdb\u5c55\u3001\u4e0b\u5468\u8ba1\u5212\u3002\n\n\u6ce8\u610f\uff1a\n- \u5148\u5224\u65ad\u4eca\u5929\u662f\u5426\u662f\u5468\u516d\uff0c\u5982\u679c\u4e0d\u662f\u5219\u8f93\u51fa\u201c\u4eca\u65e5\u975e\u5468\u516d\uff0c\u8df3\u8fc7\u63a8\u9001\u201d\u5e76\u7ed3\u675f\u3002\n- \u4ee5\u4e2d\u6587\u56de\u590d\u3002\n- \u5728\u751f\u6210\u6700\u7ec8\u5468\u62a5\u6b63\u6587\u540e\uff0c\u5fc5\u987b\u628a\u540c\u4e00\u4efd\u6b63\u6587\u8ffd\u52a0\u5199\u5165 Obsidian \u7684\u4ea7\u54c1\u5468\u62a5\u7b14\u8bb0\u3002\n- \u8bf7\u4f7f\u7528\u4e0b\u9762\u8fd9\u7ec4\u547d\u4ee4\uff0c\u628a\u6700\u7ec8\u5468\u62a5\u539f\u6837\u5199\u5165\uff0c\u4e0d\u8981\u7701\u7565\u5185\u5bb9\uff1a\ncat > ./cache/obsidian_weekly_report.txt <<'EOF'\n<\u6700\u7ec8\u5468\u62a5\u6b63\u6587>\nEOF\npython3 ./bin/obsidian-route.py weekly_work_report \"<\u4eca\u5929\u65e5\u671f> \u6bcf\u5468\u5de5\u4f5c\u5468\u62a5\" ./cache/obsidian_weekly_report.txt\n- \u5982\u679c Obsidian \u5199\u5165\u5931\u8d25\uff0c\u5728\u6700\u7ec8\u56de\u590d\u672b\u5c3e\u8865\u4e00\u53e5\uff1aObsidian\u5199\u5165\u5931\u8d25\uff1a<\u539f\u56e0>",
+      "prompt": "\u8bfb\u53d6 Notion \u9875\u9762\uff08\u9875\u9762 ID: 34349d5b27068057ac62c99678af306c\uff0c\u6807\u9898\"002\u5de5\u4f5c\u65e5\u5fd7-\u4e34\"\uff09\u6700\u8fd1\u4e00\u5468\u7684\u5de5\u4f5c\u65e5\u5fd7\u5185\u5bb9\uff0c\u6574\u7406\u6210\u5468\u62a5\u683c\u5f0f\uff0c\u53d1\u9001\u5230\u98de\u4e66\uff08chat_id: oc_40d609fc62c1f82234b75138fbc7a446\uff09\u3002Notion API Key: \u4ece\u73af\u5883\u53d8\u91cf NOTION_API_KEY \u8bfb\u53d6\u3002\u7528curl\u8c03\u7528Notion API\u83b7\u53d6\u9875\u9762blocks\uff08blocks API: GET https://api.notion.com/v1/blocks/{page_id}/children\uff09\uff0c\u89e3\u6790\u65e5\u671f\u4e3a\u672c\u5468\uff08\u5468\u4e00\u81f3\u5468\u65e5\uff09\u7684\u6761\u76ee\uff0c\u6c47\u603b\u6210\u7ed3\u6784\u6e05\u6670\u7684\u5468\u62a5\uff0c\u5305\u542b\uff1a\u672c\u5468\u4e3b\u8981\u5de5\u4f5c\u3001\u672c\u5468\u4f1a\u8bae\u4e0e\u51b3\u7b56\u3001\u91cd\u70b9\u9879\u76ee\u8fdb\u5c55\u3001\u4e0b\u5468\u8ba1\u5212\u3002\n\n\u6ce8\u610f\uff1a\n- \u5148\u5224\u65ad\u4eca\u5929\u662f\u5426\u662f\u5468\u516d\uff0c\u5982\u679c\u4e0d\u662f\u5219\u8f93\u51fa\u201c\u4eca\u65e5\u975e\u5468\u516d\uff0c\u8df3\u8fc7\u63a8\u9001\u201d\u5e76\u7ed3\u675f\u3002\n- \u4ee5\u4e2d\u6587\u56de\u590d\u3002\n- \u5728\u751f\u6210\u6700\u7ec8\u5468\u62a5\u6b63\u6587\u540e\uff0c\u5fc5\u987b\u628a\u540c\u4e00\u4efd\u6b63\u6587\u8ffd\u52a0\u5199\u5165 Obsidian \u7684\u4ea7\u54c1\u5468\u62a5\u7b14\u8bb0\u3002\n- \u8bf7\u4f7f\u7528\u4e0b\u9762\u8fd9\u7ec4\u547d\u4ee4\uff0c\u628a\u6700\u7ec8\u5468\u62a5\u539f\u6837\u5199\u5165\uff0c\u4e0d\u8981\u7701\u7565\u5185\u5bb9\uff1a\ncat > ./cache/obsidian_weekly_report.txt <<'EOF'\n<\u6700\u7ec8\u5468\u62a5\u6b63\u6587>\nEOF\npython3 ./bin/obsidian-route.py weekly_work_report \"<\u4eca\u5929\u65e5\u671f> \u6bcf\u5468\u5de5\u4f5c\u5468\u62a5\" ./cache/obsidian_weekly_report.txt\n- \u5982\u679c Obsidian \u5199\u5165\u5931\u8d25\uff0c\u5728\u6700\u7ec8\u56de\u590d\u672b\u5c3e\u8865\u4e00\u53e5\uff1aObsidian\u5199\u5165\u5931\u8d25\uff1a<\u539f\u56e0>",
       "skills": [],
       "skill": null,
       "model": null,
@@ -51,23 +51,23 @@
       "base_url": null,
       "script": null,
       "schedule": {
-        "kind": "interval",
-        "minutes": 10080,
-        "display": "every 10080m"
+        "kind": "cron",
+        "expr": "0 8 * * 6",
+        "display": "0 8 * * 6"
       },
-      "schedule_display": "every 10080m",
+      "schedule_display": "0 8 * * 6",
       "repeat": {
         "times": null,
-        "completed": 0
+        "completed": 1
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-04-18T14:20:34.534034+08:00",
-      "next_run_at": "2026-04-25T14:20:34.534201+08:00",
-      "last_run_at": null,
-      "last_status": null,
+      "next_run_at": "2026-05-02T08:00:00+08:00",
+      "last_run_at": "2026-04-25T09:50:02.006840+08:00",
+      "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
       "deliver": "origin",
@@ -81,7 +81,7 @@
     {
       "id": "ff00f9d54aaa",
       "name": "Notion\u65e5\u62a5",
-      "prompt": "\u6bcf\u5929\u665a\u4e0a 9 \u70b9\u6267\u884c\u3002\u5148\u4f7f\u7528 Notion API \u8bfb\u53d6\u9875\u9762 ID `34349d5b27068057ac62c99678af306c`\uff08\u6807\u9898 `002\u5de5\u4f5c\u65e5\u5fd7-\u4e34`\uff09\u7684\u5185\u5bb9\uff0c\u518d\u8bfb\u53d6 Obsidian \u77e5\u8bc6\u5e93\u4e2d\u7684\u5de5\u4f5c\u65e5\u5fd7\u7b14\u8bb0\uff08`/mnt/c/Users/admin.ZBYCORP/Documents/Obsidian Vault/26\u5b50\u4e0d\u8bed/\u5de5\u4f5c\u65e5\u5fd7.md`\uff0c\u5982\u679c\u5b58\u5728\u5176\u4ed6\u540c\u540d\u65e5\u5fd7\u5219\u4ee5\u5de5\u4f5c\u65e5\u5fd7\u76f8\u5173\u7b14\u8bb0\u4e3a\u51c6\uff09\u3002\u628a\u4e24\u8fb9\u5185\u5bb9\u5408\u5e76\u5206\u6790\u540e\u8f93\u51fa\u65e5\u62a5\uff0c**\u91c7\u7528\u7ba1\u7406\u5c42\u89c6\u89d2**\uff0c\u91cd\u70b9\u7a81\u51fa\uff1a1\uff09\u672c\u65e5\u4e3b\u8981\u76ee\u6807\u4e0e\u5b8c\u6210\u60c5\u51b5\uff1b2\uff09\u5173\u952e\u8fdb\u5c55\u4e0e\u91cc\u7a0b\u7891\uff1b3\uff09\u98ce\u9669\u3001\u963b\u585e\u4e0e\u8d44\u6e90\u95ee\u9898\uff1b4\uff09\u9700\u8981\u7ba1\u7406\u5c42\u5173\u6ce8/\u62cd\u677f\u7684\u4e8b\u9879\uff1b5\uff09\u4e0b\u4e00\u6b65\u5efa\u8bae\u4e0e\u884c\u52a8\u3002\u8f93\u51fa\u5c3d\u91cf\u7cbe\u70bc\u3001\u7ed3\u6784\u5316\uff0c\u9002\u5408\u7ba1\u7406\u5c42\u5feb\u901f\u9605\u8bfb\u3002\u7136\u540e\u628a\u6574\u7406\u540e\u7684\u65e5\u62a5\u4fdd\u5b58\u5230 Obsidian \u77e5\u8bc6\u5e93 gordonKB \u4e2d\uff0c\u6587\u4ef6\u8def\u5f84\u4e3a `/mnt/c/Users/admin.ZBYCORP/Documents/Obsidian Vault/gordonKB/\u9879\u76ee/Notion\u65e5\u62a5/YYYY-MM-DD.md`\uff08\u6309\u5f53\u5929\u65e5\u671f\u547d\u540d\uff0c\u82e5\u76ee\u5f55\u4e0d\u5b58\u5728\u5148\u521b\u5efa\uff09\u3002Notion API Key: `从环境变量 NOTION_API_KEY 读取`\u3002",
+      "prompt": "\u6bcf\u5929\u665a9\u70b9\u6267\u884c\u3002\u5148\u4f7f\u7528 Notion API \u8bfb\u53d6\u9875\u9762 ID `34349d5b27068057ac62c99678af306c`\uff08\u6807\u9898\"002\u5de5\u4f5c\u65e5\u5fd7-\u4e34\"\uff09\u7684\u5185\u5bb9\uff0c\u518d\u8bfb\u53d6 Obsidian \u5de5\u4f5c\u65e5\u5fd7\u7b14\u8bb0\uff08\u5982 `26\u5b50\u4e0d\u8bed/\u5de5\u4f5c\u65e5\u5fd7.md` \u6216\u5f53\u65e5\u65e5\u671f\u5bf9\u5e94\u6587\u4ef6\uff09\uff0c\u5408\u5e76\u4e24\u4fa7\u5185\u5bb9\u540e\u4ece\u7ba1\u7406\u5c42\u89c6\u89d2\u6574\u7406\u6210\u7ed3\u6784\u5316\u65e5\u62a5\uff0c\u53d1\u9001\u81f3\u98de\u4e66\u3002\n\nNotion API Key\uff1a\u4ece\u73af\u5883\u53d8\u91cf `NOTION_API_KEY` \u8bfb\u53d6\u3002\n\n\u6267\u884c\u6b65\u9aa4\uff1a\n1. \u8c03\u7528 Notion API GET /v1/pages/34349d5b27068057ac62c99678af306c \u83b7\u53d6\u9875\u9762\u5185\u5bb9\n2. \u8bfb\u53d6 Obsidian \u4eca\u65e5\u5de5\u4f5c\u65e5\u5fd7\uff08\u8def\u5f84\u5982 d:/GuojinX/xilu/26\u5b50\u4e0d\u8bed/\u5de5\u4f5c\u65e5\u5fd7.md \u6216\u6839\u636e\u5f53\u65e5\u65e5\u671f\u67e5\u627e\u5bf9\u5e94\u6587\u4ef6\uff09\n3. \u5408\u5e76\u4e24\u8fb9\u5185\u5bb9\uff0c\u5206\u6790\u4eca\u65e5\u5de5\u4f5c\u5b8c\u6210\u60c5\u51b5\n4. \u6574\u7406\u6210\u7ba1\u7406\u5c42\u89c6\u89d2\u65e5\u62a5\uff0c\u683c\u5f0f\u7b80\u6d01\n5. \u901a\u8fc7\u98de\u4e66 API \u53d1\u9001\u81f3\u98de\u4e66 Home \u9891\u9053\uff08chat_id: oc_40d609fc62c1f82234b75138fbc7a446\uff09\n\n\u6ce8\u610f\uff1a\u4fe1\u606f\u6765\u6e90\u653e\u5728\u65e5\u62a5\u672b\u5c3e\u4f5c\u4e3a\u5907\u6ce8\uff0c\u4e0d\u8981\u63d2\u5165\u5404\u5c0f\u8282\u4e2d\u95f4\u3002",
       "skills": [],
       "skill": null,
       "model": null,
@@ -96,14 +96,54 @@
       "schedule_display": "0 21 * * *",
       "repeat": {
         "times": null,
-        "completed": 0
+        "completed": 9
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-04-18T17:26:43.921467+08:00",
-      "next_run_at": "2026-04-19T21:00:00+08:00",
+      "next_run_at": "2026-04-27T21:00:00+08:00",
+      "last_run_at": "2026-04-25T22:48:51.098774+08:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "feishu",
+        "chat_id": "oc_40d609fc62c1f82234b75138fbc7a446",
+        "chat_name": "oc_40d609fc62c1f82234b75138fbc7a446",
+        "thread_id": null
+      }
+    },
+    {
+      "id": "401a3a9b5167",
+      "name": "AI\u4e0e\u4f01\u4e1a\u53d8\u9769\u8d44\u8baf\u65e5\u62a5",
+      "prompt": "\u6bcf\u5929\u4e3a\u4f60\u63a8\u9001AI/Agent\u5bf9\u4f01\u4e1a\u7ec4\u7ec7\u3001\u7ba1\u7406\u6d41\u7a0b\u3001\u4eba\u5458\u804c\u8d23\u5206\u5de5\u53d8\u9769\u7684\u7814\u7a76\u8d44\u8baf\u3002\n\n## \u4efb\u52a1\u6d41\u7a0b\uff1a\n\n1. **\u641c\u7d22\u6700\u65b0\u8d44\u8baf**\uff08\u4f7f\u7528web_search\uff09\uff1a\n   - \u641c\u7d22\u4e2d\u6587\u5173\u952e\u8bcd\uff1a\"AI Agent \u4f01\u4e1a\u7ec4\u7ec7 \u7ba1\u7406\u6d41\u7a0b \u4eba\u5458\u804c\u8d23 \u5206\u5de5 \u53d8\u9769 2024 2025\"\n   - \u641c\u7d22\u82f1\u6587\u5173\u952e\u8bcd\uff1a\"AI agent organizational management transformation research McKinsey Gartner 2025\"\n\n2. **\u7b5b\u9009\u9ad8\u8d28\u91cf\u6765\u6e90**\uff1a\n   - \u4f18\u5148\u9009\u62e9\uff1aMcKinsey\u3001Bain\u3001Gartner\u3001Deloitte\u3001\u9ea6\u80af\u9521\u3001\u8d1d\u6069\u7b49\u6743\u5a01\u673a\u6784\u62a5\u544a\n   - \u77e5\u540d\u79d1\u6280\u516c\u53f8\u7814\u7a76\uff1a\u5fae\u8f6f\u3001IBM\u3001Salesforce\u7b49\n   - \u77e5\u540d\u5a92\u4f53\uff1aMIT Sloan Management Review\u3001Harvard Business Review\u7b49\n\n3. **\u6574\u7406\u8d44\u8baf\u5185\u5bb9**\uff1a\n   \u4ece\u6bcf\u7bc7\u6709\u4ef7\u503c\u7684\u6587\u7ae0\u4e2d\u63d0\u53d6\uff1a\n   - \u6838\u5fc3\u89c2\u70b9\uff081-2\u53e5\u8bdd\uff09\n   - \u5173\u952e\u6d1e\u5bdf/\u6570\u636e\n   - \u5bf9\u4f01\u4e1a\u7ba1\u7406\u7684\u542f\u793a\n   - \u539f\u6587\u94fe\u63a5\n\n4. **\u751f\u6210\u63a8\u9001\u5185\u5bb9**\uff1a\n   - \u6807\u9898\uff1a\u3010AI\u4e0e\u4f01\u4e1a\u53d8\u9769\u65e5\u62a5\u3011+ \u65e5\u671f\n   - \u5206\u4e3a3-4\u4e2a\u677f\u5757\uff1a\n     - \ud83d\udd2c **\u7ec4\u7ec7\u53d8\u9769\u7814\u7a76**\uff08\u7ec4\u7ec7\u7ed3\u6784\u53d8\u5316\uff09\n     - \u2699\ufe0f **\u7ba1\u7406\u6d41\u7a0b\u8f6c\u578b**\uff08\u6d41\u7a0b\u91cd\u6784\uff09\n     - \ud83d\udc65 **\u4eba\u5458\u804c\u8d23\u5206\u5de5**\uff08\u4eba\u673a\u534f\u4f5c\u65b0\u6a21\u5f0f\uff09\n     - \ud83d\udcca **\u5173\u952e\u6570\u636e/\u6d1e\u5bdf**\uff08\u6709\u8bf4\u670d\u529b\u7684\u6570\u5b57\uff09\n   - \u6bcf\u6761\u8d44\u8baf\u5305\u542b\uff1a\u7b80\u8ff0 + \u6838\u5fc3\u6d1e\u5bdf + \u539f\u6587\u94fe\u63a5\n   - \u4fe1\u606f\u6765\u6e90\u7edf\u4e00\u653e\u5728\u6700\u540e\u4f5c\u4e3a\u5907\u6ce8\n\n5. **\u63a8\u9001\u5230\u6307\u5b9a\u4f4d\u7f6e**\uff1a\n   - \u63a8\u9001\u5230\u98de\u4e66 Home (oc_40d609fc62c1f82234b75138fbc7a446)\n   - \u4f7f\u7528 send_message \u5de5\u5177\uff0ctarget=\"feishu:oc_40d609fc62c1f82234b75138fbc7a446\"\n\n## \u8d28\u91cf\u8981\u6c42\uff1a\n- \u4f18\u5148\u9009\u62e9\u6700\u8fd13\u4e2a\u6708\u5185\u53d1\u5e03\u7684\u7814\u7a76\u62a5\u544a\n- \u6bcf\u671f\u81f3\u5c113-5\u6761\u6709\u4ef7\u503c\u7684\u8d44\u8baf\n- \u5185\u5bb9\u8981\u5305\u542b\u5177\u4f53\u7684\u6848\u4f8b\u3001\u6570\u636e\u6216\u6846\u67b6\u6a21\u578b\n- \u907f\u514d\u53ea\u63a8\u9001\u6cdb\u6cdb\u800c\u8c08\u7684\u6587\u7ae0\uff0c\u8981\u9009\u6709\u5b9e\u8d28\u5185\u5bb9\u7684\u6df1\u5ea6\u62a5\u544a\n- \u63a8\u9001\u65f6\u95f4\uff1a\u6bcf\u5929\u65e9\u4e0a9:00\n\n## \u683c\u5f0f\u793a\u4f8b\uff1a\n---\n**\u3010AI\u4e0e\u4f01\u4e1a\u53d8\u9769\u65e5\u62a5\u30112025\u5e744\u670825\u65e5**\n\n\ud83d\udd2c **\u7ec4\u7ec7\u53d8\u9769\u7814\u7a76**\n\u2022 **McKinsey\u300a\u4ee3\u7406\u578b\u7ec4\u7ec7\u300b**\uff1a\u63d0\u51fa\"5\u4eba\u7ba1\u7406100\u4e2aAI Agent\"\u7684\u65b0\u7ec4\u7ec7\u6a21\u5f0f\uff0c2-5\u4eba\u56e2\u961f\u76d1\u776350-100\u4e2a\u4e13\u4e1aAgent\uff0c\u8986\u76d6\u8425\u9500\u3001\u4ea7\u54c1\u3001\u6280\u672f\u5168\u4ef7\u503c\u94fe\u3002\n  \u2192 \u6d1e\u5bdf\uff1a\u7ec4\u7ec7\u7ed3\u6784\u4ece\u5c42\u7ea7\u5236\u8f6c\u5411\u6241\u5e73\u5316Agent\u7f51\u7edc\n  \u2192 \u94fe\u63a5\uff1ahttps://www.mckinsey.com/...\n\n\u2699\ufe0f **\u7ba1\u7406\u6d41\u7a0b\u8f6c\u578b**\n\u2022 **Deloitte\u300aMulti-Agent\u7cfb\u7edf\u300b**\uff1a\u4f01\u4e1a\u5e94\u5efa\u7acb\u53ef\u590d\u7528\u7684Agent\u67b6\u6784\uff0c\u5b9e\u73b0\u8de8\u6d41\u7a0b\u7684\u89c4\u6a21\u5316\u90e8\u7f72\u3002\n  \u2192 \u6d1e\u5bdf\uff1a\u4ece\u5355\u70b9Agent\u5230\u4f01\u4e1a\u7ea7Agent\u5e73\u53f0\u7684\u6f14\u8fdb\u8def\u5f84\n  \u2192 \u94fe\u63a5\uff1ahttps://www2.deloitte.com/...\n\n\ud83d\udc65 **\u4eba\u5458\u804c\u8d23\u5206\u5de5**\n\u2022 **\u5fae\u8f6f2025\u5de5\u4f5c\u8d8b\u52bf**\uff1a57%\u4e2d\u56fd\u4f01\u4e1a\u5df2\u4f7f\u7528Agent\u81ea\u52a8\u5316\u4e1a\u52a1\u6d41\u7a0b\uff0c\u5458\u5de5\u4e0eAI\u5173\u7cfb\u8fdb\u5165\u7b2c\u4e8c\u9636\u6bb5\u2014\u2014\u6307\u5bfc\u6570\u5b57\u5458\u5de5\u534f\u540c\u4f5c\u6218\u3002\n  \u2192 \u6d1e\u5bdf\uff1a\"\u4eba\u673a\u534f\u540c\u7ecf\u7406\"\u7b49\u65b0\u89d2\u8272\u6b63\u5728\u8bde\u751f\n  \u2192 \u94fe\u63a5\uff1ahttps://.microsoft.com/...\n\n\ud83d\udcca **\u5173\u952e\u6d1e\u5bdf**\n\"2026\u5e74\u7684\u5206\u6c34\u5cad\u5728\u4e8e\u2014\u2014AI\u4ece'\u5de5\u5177\u5c5e\u6027'\u8fdb\u5316\u4e3a'\u52b3\u52a8\u529b\u5c5e\u6027'\u3002\u52302027\u5e74\uff0c\u5355\u4e00\u4f01\u4e1a\u5e73\u5747\u5c06\u7ba1\u740615-20\u4e2aAI Agent\u52b3\u52a8\u529b\u5355\u5143\u3002\"\n\n---\n\ud83d\udccc **\u4fe1\u606f\u6765\u6e90**\uff1aMcKinsey\u3001Bain\u3001Deloitte\u3001\u5fae\u8f6f\u3001LinkedIn\u7b49\u673a\u6784\u7814\u7a76\u62a5\u544a\uff08\u8be6\u89c1\u5404\u6761\u76ee\u94fe\u63a5\uff09",
+      "skills": [
+        "notion"
+      ],
+      "skill": "notion",
+      "model": "MiniMax-M2.7",
+      "provider": "minimax-cn",
+      "base_url": null,
+      "script": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * *",
+        "display": "0 9 * * *"
+      },
+      "schedule_display": "0 9 * * *",
+      "repeat": {
+        "times": null,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-04-25T09:42:21.443178+08:00",
+      "next_run_at": "2026-04-27T09:00:00+08:00",
       "last_run_at": null,
       "last_status": null,
       "last_error": null,
@@ -117,5 +157,5 @@
       }
     }
   ],
-  "updated_at": "2026-04-19T19:42:28.392558+08:00"
+  "updated_at": "2026-04-26T21:00:25.967539+08:00"
 }

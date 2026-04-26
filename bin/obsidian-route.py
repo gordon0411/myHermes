@@ -6,6 +6,20 @@ import os
 from pathlib import Path
 
 
+def _normalize_path(raw_path: str | os.PathLike[str]) -> Path:
+    path = Path(raw_path)
+    if path.exists() or os.name == "nt":
+        return path
+
+    text = str(raw_path)
+    if len(text) >= 3 and text[1:3] == ":\\":
+        drive = text[0].lower()
+        suffix = text[3:].replace("\\", "/")
+        return Path(f"/mnt/{drive}/{suffix}")
+
+    return path
+
+
 def _load_routes(route_file: Path) -> dict:
     with route_file.open("r", encoding="utf-8") as fh:
         data = json.load(fh)
@@ -27,8 +41,8 @@ def main() -> int:
     parser.add_argument("content_file")
     args = parser.parse_args()
 
-    route_file = Path(os.getenv("OBSIDIAN_ROUTE_FILE", Path(__file__).resolve().parents[1] / "obsidian-routes.json"))
-    vault = Path(os.getenv("OBSIDIAN_VAULT_PATH", Path.home() / "Documents" / "Obsidian Vault"))
+    route_file = _normalize_path(os.getenv("OBSIDIAN_ROUTE_FILE", Path(__file__).resolve().parents[1] / "obsidian-routes.json"))
+    vault = _normalize_path(os.getenv("OBSIDIAN_VAULT_PATH", Path.home() / "Documents" / "Obsidian Vault"))
 
     if not route_file.exists():
         raise FileNotFoundError(f"Obsidian route file not found: {route_file}")

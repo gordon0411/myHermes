@@ -12,7 +12,7 @@ DEFAULT_TEMPLATE = """# <%TITLE%>
 时间：<%TIME%>
 参与人：<%PARTICIPANTS%>
 主题：<%TOPIC%>
-标签：#会议记录
+标签：会议记录
 
 ## AI会议总结
 

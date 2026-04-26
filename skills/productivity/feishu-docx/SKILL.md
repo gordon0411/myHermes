@@ -68,9 +68,28 @@ result = json.loads(urllib.request.urlopen(insert_req).read())
 
 Document URL: `https://feishu.cn/docx/` + doc_id
 
+## Reading Document Content
+
+Use the `raw_content` endpoint to get full document text (simplest method):
+
+```python
+req = urllib.request.Request(
+    f'https://open.feishu.cn/open-apis/docx/v1/documents/{doc_id}/raw_content',
+    headers={'Authorization': 'Bearer ' + token}
+)
+result = json.loads(urllib.request.urlopen(req).read())
+print(result['data']['content'])  # Full document text
+```
+
+Other approaches (avoid unless needed):
+- `/blocks/{block_id}` - returns block metadata only, no text content
+- `/blocks/{block_id}/children` - returns list of child block IDs, not text
+- Block structure: block_type maps to key (3→heading1, 2→text, 12→bullet, etc.)
+
 ## Notes
 
-- Max 50 blocks per request
+- Max 50 blocks per request (write)
 - Rate limit: 3 requests/second per app
 - The block_type integer must match its named key (e.g., block_type 3 → "heading1", block_type 2 → "text")
 - Initial write to a new doc requires using the doc_id as both document_id and block_id in the children endpoint
+- **Reading tip**: Use `/raw_content` endpoint instead of traversing block tree

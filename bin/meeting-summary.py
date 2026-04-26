@@ -11,13 +11,23 @@ from pathlib import Path
 
 SUMMARY_HEADING = "## AI会议总结"
 TRANSCRIPT_HEADING = "## 转写全文"
+TRANSCRIPT_PLACEHOLDERS = {"等待转写。", "待补充", "待补充。"}
+
+
+def read_text_with_fallback(path: Path) -> str:
+    for encoding in ("utf-8", "utf-8-sig", "gbk"):
+        try:
+            return path.read_text(encoding=encoding)
+        except UnicodeDecodeError:
+            continue
+    raise UnicodeDecodeError("unknown", b"", 0, 1, f"Unable to decode file: {path}")
 
 
 def load_env_file(path: Path) -> dict[str, str]:
     values: dict[str, str] = {}
     if not path.exists():
         return values
-    for raw_line in path.read_text(encoding="utf-8").splitlines():
+    for raw_line in read_text_with_fallback(path).splitlines():
         line = raw_line.strip()
         if not line or line.startswith("#") or "=" not in line:
             continue
@@ -37,7 +47,7 @@ def read_config_model(config_path: Path) -> str:
     if not config_path.exists():
         return "MiniMax-M2.7"
     pattern = re.compile(r"^\s*default:\s*(.+?)\s*$")
-    for line in config_path.read_text(encoding="utf-8").splitlines():
+    for line in read_text_with_fallback(config_path).splitlines():
         match = pattern.match(line)
         if match:
             return match.group(1).strip().strip("'\"")
@@ -64,9 +74,9 @@ def replace_or_append_section(text: str, heading: str, body: str) -> str:
 def build_system_prompt() -> str:
     return (
         "你是专业的中文会议纪要助手。"
-        "你需要根据会议或访谈转写稿，输出简洁、可执行、适合直接写入 Obsidian 的 Markdown。"
-        "不要输出代码块，不要编造未提及的结论。"
-        "待办事项要尽量写成可执行动作。"
+        "请根据会议或访谈转写稿，输出简洁、可执行、适合直接写入 Obsidian 的 Markdown 内容。"
+        "不要输出代码块，不要编造转写中没有提到的结论。"
+        "待办事项尽量写成可执行动作。"
     )
 
 
@@ -172,14 +182,13 @@ def main() -> int:
     if not note_path.exists():
         raise FileNotFoundError(f"Meeting note not found: {note_path}")
 
-    note_text = note_path.read_text(encoding="utf-8")
-    transcript = ""
+    note_text = read_text_with_fallback(note_path)
     if args.transcript_file:
-        transcript = Path(args.transcript_file).read_text(encoding="utf-8").strip()
+        transcript = read_text_with_fallback(Path(args.transcript_file)).strip()
     else:
         transcript = extract_section(note_text, TRANSCRIPT_HEADING)
 
-    if not transcript or transcript in {"等待转写。", "待补充"}:
+    if not transcript or transcript in TRANSCRIPT_PLACEHOLDERS:
         raise ValueError("No transcript content found. Please add the transcript first.")
 
     model = read_config_model(Path(__file__).resolve().parents[1] / "config.yaml")

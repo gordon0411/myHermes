@@ -15,6 +15,32 @@ $pidFile = Join-Path $runtimeRoot "whisper-server.pid"
 $outLog = Join-Path $logDir "server.out.log"
 $errLog = Join-Path $logDir "server.err.log"
 
+function Get-WhisperProcess {
+    param(
+        [int]$Port = 8080
+    )
+
+    $process = Get-Process whisper-server -ErrorAction SilentlyContinue |
+        Sort-Object StartTime -Descending |
+        Select-Object -First 1
+    if ($process) {
+        return $process
+    }
+
+    $netstat = netstat -ano | Select-String ":$Port\s+.*LISTENING"
+    foreach ($match in $netstat) {
+        if ($match.Line -match 'LISTENING\s+(\d+)\s*$') {
+            $pid = [int]$Matches[1]
+            $candidate = Get-Process -Id $pid -ErrorAction SilentlyContinue
+            if ($candidate -and $candidate.ProcessName -eq "whisper-server") {
+                return $candidate
+            }
+        }
+    }
+
+    return $null
+}
+
 if (-not (Test-Path -LiteralPath $serverExe)) {
     throw "whisper-server.exe not found: $serverExe"
 }
@@ -39,6 +65,13 @@ if (Test-Path -LiteralPath $pidFile) {
     Remove-Item -LiteralPath $pidFile -Force -ErrorAction SilentlyContinue
 }
 
+$existingProcess = Get-WhisperProcess -Port $Port
+if ($existingProcess) {
+    Set-Content -LiteralPath $pidFile -Value $existingProcess.Id -Encoding ascii
+    Write-Output "whisper-server is already running (PID: $($existingProcess.Id))."
+    exit 0
+}
+
 $args = @(
     "--host", $BindHost,
     "--port", $Port,
@@ -54,15 +87,34 @@ if ($NoGpu) {
 
 Remove-Item -LiteralPath $outLog, $errLog -Force -ErrorAction SilentlyContinue
 $before = @(Get-Process whisper-server -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Id)
-$argString = [string]::Join(" ", ($args | ForEach-Object { '"{0}"' -f $_ }))
-$command = 'cd /d "{0}" && start "" /b "{1}" {2} 1>>"{3}" 2>>"{4}"' -f $serverDir, $serverExe, $argString, $outLog, $errLog
-cmd.exe /c $command | Out-Null
-Start-Sleep -Seconds 2
-$after = @(Get-Process whisper-server -ErrorAction SilentlyContinue | Where-Object { $before -notcontains $_.Id } | Sort-Object StartTime -Descending)
-$process = $after | Select-Object -First 1
-if (-not $process) {
+$process = Start-Process `
+    -FilePath $serverExe `
+    -ArgumentList $args `
+    -WorkingDirectory $serverDir `
+    -WindowStyle Hidden `
+    -RedirectStandardOutput $outLog `
+    -RedirectStandardError $errLog `
+    -PassThru
+
+$detectedProcess = $null
+for ($i = 0; $i -lt 15; $i++) {
+    Start-Sleep -Seconds 1
+    $after = @(Get-Process whisper-server -ErrorAction SilentlyContinue | Where-Object { $before -notcontains $_.Id } | Sort-Object StartTime -Descending)
+    $detectedProcess = $after | Select-Object -First 1
+    if (-not $detectedProcess) {
+        $detectedProcess = Get-WhisperProcess -Port $Port
+    }
+    if ($detectedProcess) {
+        break
+    }
+}
+
+if (-not $detectedProcess) {
+    if ($process -and -not $process.HasExited) {
+        Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+    }
     throw "whisper-server failed to start."
 }
 
-Set-Content -LiteralPath $pidFile -Value $process.Id -Encoding ascii
-Write-Output "whisper-server started on http://$BindHost`:$Port (PID: $($process.Id))"
+Set-Content -LiteralPath $pidFile -Value $detectedProcess.Id -Encoding ascii
+Write-Output "whisper-server started on http://$BindHost`:$Port (PID: $($detectedProcess.Id))"

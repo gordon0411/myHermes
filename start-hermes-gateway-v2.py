@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, r"C:\Users\admin.ZBYCORP\AppData\Local\hermes\hermes-agent")
@@ -69,6 +70,20 @@ def cleanup_stale_gateway_state():
 sys.exit = safe_exit
 os.kill = safe_kill
 
+SERVICE_MODE = not sys.stdin or not sys.stdin.isatty()
+MAX_RESTARTS = 3
+RESTART_WINDOW_SECONDS = 600
+RESTART_DELAY_SECONDS = 3
+
+
+def should_retry_keyboard_interrupt(restart_times):
+    now = time.time()
+    recent = [ts for ts in restart_times if now - ts < RESTART_WINDOW_SECONDS]
+    if len(recent) >= MAX_RESTARTS:
+        return False, recent
+    recent.append(now)
+    return True, recent
+
 try:
     from gateway.run import start_gateway
     import asyncio
@@ -76,11 +91,31 @@ try:
     cleaned_files = cleanup_stale_gateway_state()
     if cleaned_files:
         print("Cleaned stale gateway state:", ", ".join(cleaned_files))
+    restart_times = []
 
-    print("Starting Hermes Gateway with Feishu (safer Windows wrapper)...")
-    asyncio.run(start_gateway(replace=False))
-except KeyboardInterrupt:
-    print("\nGateway stopped by user")
+    while True:
+        try:
+            print("Starting Hermes Gateway with Feishu (safer Windows wrapper)...")
+            asyncio.run(start_gateway(replace=False))
+            break
+        except KeyboardInterrupt:
+            if not SERVICE_MODE:
+                print("\nGateway stopped by user")
+                break
+
+            should_retry, restart_times = should_retry_keyboard_interrupt(restart_times)
+            if not should_retry:
+                print(
+                    "\nGateway interrupted repeatedly in service mode; "
+                    "leaving recovery to watchdog."
+                )
+                break
+
+            print(
+                "\nGateway interrupted in service mode; retrying in "
+                f"{RESTART_DELAY_SECONDS}s..."
+            )
+            time.sleep(RESTART_DELAY_SECONDS)
 except Exception as e:
     print(f"Error: {e}")
     import traceback
